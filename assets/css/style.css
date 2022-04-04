@@ -1,0 +1,50 @@
+:root {
+    --primary: #315ae4;
+    --secondary: #357fe0;
+    --tertiary: #788585;
+    --light-dark: #6f6866;
+    --white: white;
+    --border-radius: .3rem;
+  }
+
+  .app-title {
+    font-size: 3rem;
+    background: rgb(59,35,45);
+    background: radial-gradient(circle, rgba(59,35,45,1) 6%, rgba(40,43,217,1) 100%);
+    color: white;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+ .card-body {
+    /* padding: 6px 5px; */
+    margin: 5px 0;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+
+  }
+
+  .card h2 {
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+  }
+  #cityname {
+      padding: 7px;
+      width: 200px;
+  }
+  .btn {
+    font-size: 1.3rem;
+    text-decoration:none;
+    padding: 6px 5px;
+    width: 217px;
+    display: block;
+    margin: 5px 0;
+    border-radius: var(--border-radius);
+    color: var(--white);
+    border: none;
+    outline: none;
+    background-color: var(--secondary);
+    transform: translate(-1px, -1px);
+    cursor: pointer;
+  }
+  

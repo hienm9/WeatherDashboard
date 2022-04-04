@@ -13,9 +13,7 @@
 
 <body class="flex-column min-100-vh">
   <header class="hero">
-    <h1 class="app-title"><i class="fab fa-github"></i> Weather Dashboard</h1>
-    <p>Search for a City
-    </p>
+    <h1 class="app-title"> Weather Dashboard</h1>
   </header>
 
 
@@ -23,12 +21,13 @@
     <div class="col-12 col-md-4">
 
       <div class="card">
-        <h3 class="card-header text-uppercase">Enter a City</h3>
+        <h2 class="card-header text-uppercase">Search for a City</h2>
         <form id="user-form" class="card-body">
-          <label class="form-label" for="cityname">CityName</label>
-          <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" />
-          <button type="submit" class="btn">Search</button>
+          <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" placeholder="Enter a City" />
         </form>
+        <button type="submit" class="btn">Search</button>
+      </div>
+      <div class="search-history">
       </div>
     </div>
 
