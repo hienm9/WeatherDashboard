@@ -1,8 +1,30 @@
-// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-const myAPIKey = "78d9272bcac95b3738e5612909e959e6";
 let city = document.getElementById("usercity");
+let submitBtn = document.querySelector(".btn");
+let nameCityEl = document.querySelector("#cityname");
+var weatherContainerEl = document.querySelector("#weather");
+
+const myAPIKey = "78d9272bcac95b3738e5612909e959e6";
+// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 // let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-let submitBtn = document.getElementById("btnSubmit");
+
+let formSubmitHandler = function(event) {
+   //prevent page from refreshing
+   event.preventDefault();
+
+   //get value from input element
+   let city = nameCityEl.ariaValueMax.trim();
+
+   if (city) {
+     getCityWeather(city);
+
+     // clear old content
+     weatherContainerEl.value="";
+     nameCityEl.value="";
+   }else{
+     alert("Please enter a city");
+   }
+};
+
 
 // add event lister to the submit button
 submitBtn.addEventListener("click", function () {
@@ -13,6 +35,7 @@ submitBtn.addEventListener("click", function () {
 fetch(queryURL).then(function(response) {
     // request was successful
     if (response.ok) {
+      console.log(response);
       response.json().then(function(data) {
         // console(data);
         console.log(data);
