@@ -1,7 +1,7 @@
 let userFormEl = document.querySelector("#user-form");
 let nameCityEl = document.querySelector("#cityname");
 let weatherContainerEl = document.querySelector("#weather");
-// let submitBtn = document.querySelector(".btn");
+let submitBtn = document.querySelector("#submitBtn");
 
 
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
@@ -10,7 +10,6 @@ let weatherContainerEl = document.querySelector("#weather");
 let formSubmitHandler = function(event) {
    //prevent page from refreshing
 
-   debugger;
    event.preventDefault();
 
    //get value from input element
@@ -18,7 +17,7 @@ let formSubmitHandler = function(event) {
 
    if (usercity) {
      getCityWeather(usercity);
-     searchHistory(usercity);
+    //  searchHistory(usercity);
      // clear old content
      weatherContainerEl.value="";
      nameCityEl.value="";
@@ -31,7 +30,6 @@ let getCityWeather = function(city) {
   // const myAPIKey = "78d9272bcac95b3738e5612909e959e6";
   const myAPIKey = "f186c057bcef67933489204c248dcd30";
   // format the open weather api url
-  debugger;
   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+ myAPIKey + "&cnt=5&units=imperial";
 
   // make a get request to url
@@ -41,7 +39,7 @@ let getCityWeather = function(city) {
       if (response.ok) {
       console.log(response);
       response.json().then(function(data) {
-        // console.log(data);
+        console.log(data);
         //call the displayWeather function
         displayWeather(data);
       });
@@ -49,9 +47,9 @@ let getCityWeather = function(city) {
       alert('Error: City not found');
     }
  })
-  // .catch(function(error) {
-  //   alert('Unable to connect to Open Weather');
-  // });
+  .catch(function(error) {
+    alert('Unable to connect to Open Weather');
+  });
 };
 
 // use the date time and format from moment js library
@@ -64,22 +62,12 @@ let currentDay = moment();
 
 let displayWeather = function(searchCity) {
   // check if api returned any city
-  if (searchCity.length === 0) {
-    weatherContainerEl.textContent = "City not found.";
-    return;
-  }
+  // if (searchCity.length === 0) {
+  //   weatherContainerEl.textContent = "City not found.";
+  //   return;
+  // }
   let fiveDayForecast = document.querySelector("#five-days-forecast");
-  let currentForecast = document.querySelector("#current-forecast");
-  let currentDate = new Date(data.list[i].dt * 1000).toString();
-    currentForecast.innerHTML = currentDate;
-
-  let forecastDay = `<div class="forecast-day">
-  <p>${dayname}</p>
-  <p><span class="ico-${icon}" title="${icon}"></span></p>
-  <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
-  <div class="forecast-day-desc">${weatherDescription}</div>
-  </div>`;
-  currentForecast.insertAdjacentHTML('afterend', forecastDay);
+  // let currentForecast = document.querySelector("#current-forecast");
 
 
   // to do reset the forcast data to blank
@@ -93,14 +81,14 @@ let displayWeather = function(searchCity) {
         let weatherDescription = searchCity.list[i].weather[0].description;
      
         console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
-      //  let forecastDay = `<div class="forecast-day">
-      //     <p>${dayname}</p>
-      //     <p><span class="ico-${icon}" title="${icon}"></span></p>
-      //     <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
-      //     <div class="forecast-day-desc">${weatherDescription}</div>
-      //   </div>`;
+       let forecastDay = `<div class="forecast-day">
+          <p>${dayname}</p>
+          <p><span class="ico-${icon}" title="${icon}"></span></p>
+          <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
+          <div class="forecast-day-desc">${weatherDescription}</div>
+        </div>`;
         // display the forcast for 5 days
-        fiveDayForecast[0].insertAdjacentHTML('afterend', forecastDay);
+        fiveDayForecast[0].appendChild(forecastDay);
     }
 
 
@@ -110,6 +98,8 @@ let displayWeather = function(searchCity) {
 }
 
 userFormEl.addEventListener("submit", formSubmitHandler);
+submitBtn.addEventListener('click',formSubmitHandler);
+// add  a click event for the button
 
 // on the current forcast section with border and radius
 // display the City enter  + (current date) + weather icon
