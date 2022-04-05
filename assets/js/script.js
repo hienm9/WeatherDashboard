@@ -1,7 +1,8 @@
 let userFormEl = document.querySelector("#user-form");
 let nameCityEl = document.querySelector("#cityname");
-let weatherContainerEl = document.querySelector("#weather");
+let weatherContainerEl = document.querySelector(".weather");
 let submitBtn = document.querySelector("#submitBtn");
+const myAPIKey = "f186c057bcef67933489204c248dcd30";
 
 
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
@@ -28,7 +29,6 @@ let formSubmitHandler = function(event) {
 
 let getCityWeather = function(city) {
   // const myAPIKey = "78d9272bcac95b3738e5612909e959e6";
-  const myAPIKey = "f186c057bcef67933489204c248dcd30";
   // format the open weather api url
   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+ myAPIKey + "&cnt=5&units=imperial";
 
@@ -59,6 +59,47 @@ let currentDay = moment();
 // var currentDate = moment().format('L');
 // $("#current-date").text("(" + currentDate + ")");
 
+let displayCurrent = function(lat, lon) {
+  let currentForecast = document.querySelector("#current-forecast");
+
+ var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${myAPIKey}`
+  // make a get request to url
+  fetch(apiUrl)
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+      console.log(response);
+      response.json().then(function(data) {
+        console.log(data);
+        //call the displayWeather function
+        let dayname = new Date(data.current.dt * 1000).toLocaleDateString("en", {weekday: "long"});
+
+        // let icon = data.current.weather[0].icon;
+        let temp = data.current.temp;
+        let humidity = data.current.humidity;
+        // let weatherDescription = data.current.weather[0].description;
+     
+        // console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
+       let forecastDay = `<div class="forecast-day">
+          <p>${dayname}</p>
+   
+          <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
+          <div <label for="" class="forecast-day-humidity">${humidity}>Humidity</label></div>
+        </div>`;
+        // display the forcast for 5 days
+        currentForecast.innerHTML += forecastDay;
+
+      });
+    }else{
+      alert('Error: City not found');
+    }
+ })
+  .catch(function(error) {
+    alert('Unable to connect to Open Weather');
+  });
+
+
+};
 
 let displayWeather = function(searchCity) {
   // check if api returned any city
@@ -66,34 +107,37 @@ let displayWeather = function(searchCity) {
   //   weatherContainerEl.textContent = "City not found.";
   //   return;
   // }
+  displayCurrent(searchCity.city.coord.lat, searchCity.city.coord.lon);
   let fiveDayForecast = document.querySelector("#five-days-forecast");
-  // let currentForecast = document.querySelector("#current-forecast");
-
 
   // to do reset the forcast data to blank
+  fiveDayForecast.innerHTML = "";
+
 
   for (let i = 0; i < 5; i++) {
       
-        let dayname = new Date(searchCity.list[i].dt * 1000).toLocaleDateString("en", {weekday: "long",});
+        let dayname = new Date(searchCity.list[i].dt * 1000).toLocaleDateString("en", {weekday: "long"});
 
-        let icon = searchCity.list[i].weather.icon;
+        let icon = searchCity.list[i].weather[0].icon;
         let temp = searchCity.list[i].main.temp;
+        let humidity = searchCity.list[i].main.humidity;
         let weatherDescription = searchCity.list[i].weather[0].description;
      
         console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
        let forecastDay = `<div class="forecast-day">
           <p>${dayname}</p>
-          <p><span class="ico-${icon}" title="${icon}"></span></p>
+          <img src="https://openweathermap.org/img/w/${icon}.png">
           <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
           <div class="forecast-day-desc">${weatherDescription}</div>
+          <div <label for="" class="forecast-day-humidity">${humidity}>Humidity</label></div>
         </div>`;
         // display the forcast for 5 days
-        fiveDayForecast[0].appendChild(forecastDay);
+        fiveDayForecast.innerHTML += forecastDay;
     }
 
 
-  // city found, push the search city to the history box
-  // when click on a search history, it calls the submit function and displays the weather data.
+  // city found, push the search city to the history box, save it to the local storage, display to the local storage
+  // when click on a search history, it calls  displayWeather function and displays the weather data.
 
 }
 
