@@ -10,7 +10,6 @@ const myAPIKey = "f186c057bcef67933489204c248dcd30";
 
 let formSubmitHandler = function(event) {
    //prevent page from refreshing
-
    event.preventDefault();
 
    //get value from input element
@@ -30,7 +29,7 @@ let formSubmitHandler = function(event) {
 let getCityWeather = function(city) {
   // const myAPIKey = "78d9272bcac95b3738e5612909e959e6";
   // format the open weather api url
-  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+ myAPIKey + "&cnt=5&units=imperial";
+  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+ myAPIKey + "&cnt=6&units=imperial";
 
   // make a get request to url
   fetch(apiUrl)
@@ -53,14 +52,12 @@ let getCityWeather = function(city) {
 };
 
 // use the date time and format from moment js library
-let currentDay = moment();
+// let currentDay = moment();
 // $("#currentDay").text(moment().format('dddd MMMM Do YYYY, h:mm a'));
 
-// var currentDate = moment().format('L');
-// $("#current-date").text("(" + currentDate + ")");
-
 let displayCurrent = function(lat, lon) {
-  let currentForecast = document.querySelector("#current-forecast");
+  let currentForecast = (document.querySelector("#current-forecast"));
+  console.log(nameCityEl)
 
  var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${myAPIKey}`
   // make a get request to url
@@ -72,17 +69,18 @@ let displayCurrent = function(lat, lon) {
       response.json().then(function(data) {
         console.log(data);
         //call the displayWeather function
-        let dayname = new Date(data.current.dt * 1000).toLocaleDateString("en", {weekday: "long"});
+        let dayname = new Date(data.current.dt * 1000).toLocaleDateString("en-US");
 
         // let icon = data.current.weather[0].icon;
         let temp = data.current.temp;
         let humidity = data.current.humidity;
-        // let weatherDescription = data.current.weather[0].description;
-     
+        let weatherDesc = data.current.weather[0].description;
+        let currentIcon = data.current.weather[0].icon;     
         // console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
        let forecastDay = `<div class="forecast-day">
-          <p>${dayname}</p>
-   
+          <p>Test + ${dayname}</p>
+          <img src="https://openweathermap.org/img/w/${currentIcon}.png">
+          <div class="forecast-day-desc">${weatherDesc}</div>
           <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
           <div <label for="" class="forecast-day-humidity">${humidity}>Humidity</label></div>
         </div>`;
@@ -110,26 +108,33 @@ let displayWeather = function(searchCity) {
   displayCurrent(searchCity.city.coord.lat, searchCity.city.coord.lon);
   let fiveDayForecast = document.querySelector("#five-days-forecast");
 
-  // to do reset the forcast data to blank
+// reset the forcast data to blank
   fiveDayForecast.innerHTML = "";
 
+  // const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  // const d = new Date();
+  // let day = weekday[d.getDay()];
+  // document.getElementById("#current-forecast").innerHTML = day;
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 6; i++) {
       
-        let dayname = new Date(searchCity.list[i].dt * 1000).toLocaleDateString("en", {weekday: "long"});
-
+        // let dayname = new Date(searchCity.list[i].dt * 1000).toLocaleDateString("en", {weekday: "long"});
+        let day = new Date(searchCity.list[i].dt * 1000).toLocaleDateString("en-US");
+      
         let icon = searchCity.list[i].weather[0].icon;
         let temp = searchCity.list[i].main.temp;
         let humidity = searchCity.list[i].main.humidity;
         let weatherDescription = searchCity.list[i].weather[0].description;
+        // let wind = searchCity.list[i].main.wind.speed;
+        //  <div class="forecast-day-wind">${wind}</div>
      
-        console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
+        console.log(" temp: " + temp + " dayname:" + day + " weatherDescription:" + weatherDescription);
        let forecastDay = `<div class="forecast-day">
-          <p>${dayname}</p>
+          <p>${day}</p>
           <img src="https://openweathermap.org/img/w/${icon}.png">
-          <div class="forecast-day-temp">${temp}<sup>°F</sup></div>
-          <div class="forecast-day-desc">${weatherDescription}</div>
-          <div <label for="" class="forecast-day-humidity">${humidity}>Humidity</label></div>
+          <div <label for="" class="forecast-day-temp">Temp: </label>${temp}<sup>°F</sup></div>
+          <div <label for="" class="forecast-day-desc">Condition: </label>${weatherDescription}</div>
+          <div <label for="" class="orecast-day-humidity">Humitidy: </label>${humidity}</div>
         </div>`;
         // display the forcast for 5 days
         fiveDayForecast.innerHTML += forecastDay;
