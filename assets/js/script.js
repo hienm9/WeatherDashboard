@@ -43,11 +43,9 @@ let getCityWeather = function(city) {
     alert('Unable to connect to Open Weather');
   });
 };
-// use the date time and format from moment js library
-let currentDay = moment();
-// $("#currentDay").text(moment().format('dddd MMMM Do YYYY, h:mm a'));
-// var currentDate = moment().format('L');
-// $("#current-date").text("(" + currentDate + ")");
+// Date format
+const dateoptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
 let displayCurrent = function(lat, lon) {
   let currentForecast = document.querySelector("#current-forecast");
  var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?&units=imperial&exclude=hourly&lat=${lat}&lon=${lon}&appid=${myAPIKey}`
@@ -61,6 +59,7 @@ let displayCurrent = function(lat, lon) {
         console.log(data);
         //call the displayWeather function
         let dayname = new Date(data.current.dt * 1000).toLocaleDateString("en", {weekday: "long"});
+        let daynum = new Date(data.current.dt * 1000).toLocaleDateString(dateoptions);
         // let icon = data.current.weather[0].icon;
         let temp = data.current.temp;
         let humidity = data.current.humidity;
@@ -69,6 +68,7 @@ let displayCurrent = function(lat, lon) {
         // console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
        let forecastDay = `<div class="forecast-day">
           <p>${dayname}</p>
+          <p>${daynum}</p>
           <img src="https://openweathermap.org/img/w/${iconCurrent}.png">
           <div <label for="" class="forecast-day-desc">Condition: </label>${weatherDesc}</div>
           <div <label for="" class="forecast-day-temp">Temp: </label>${temp}<sup>°F</sup></div>
@@ -79,8 +79,12 @@ let displayCurrent = function(lat, lon) {
   let fiveDayForecast = document.querySelector("#five-days-forecast");
   // to do reset the forcast data to blank
   fiveDayForecast.innerHTML = "";
+
+
   for (let i = 1; i < 6; i++) {
+        // let dayname = new Date(data.daily[i].dt * 1000).toLocaleDateString("en",{weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } );
         let dayname = new Date(data.daily[i].dt * 1000).toLocaleDateString("en", {weekday: "long"});
+        let daynum = new Date(data.daily[i].dt * 1000).toLocaleDateString(dateoptions);    
         let icon = data.daily[i].weather[0].icon;
         let temp = data.daily[i].temp.day;
         let humidity = data.daily[i].humidity;
@@ -88,6 +92,7 @@ let displayCurrent = function(lat, lon) {
        // console.log(" temp: " + temp + " dayname:" + dayname + " weatherDescription:" + weatherDescription);
        let forecastDay = `<div class="forecast-day">
           <p>${dayname}</p>
+          <p>${daynum}</p>
           <img src="https://openweathermap.org/img/w/${icon}.png">
           <div <label for="" class="forecast-day-temp">Temp: </label>${temp}<sup>°F</sup></div>
           <div <label for="" class="forecast-day-desc">Condition: </label>${weatherDescription}</div>
