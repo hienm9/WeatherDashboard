@@ -42,9 +42,52 @@
   transform: translate(-1px, -1px);
   cursor: pointer;
 }
+
+.forecast-day{
+  border: 2px solid darkgray;
+  border-radius: 1px;
+  margin: 20px;
+  padding: 5px 0 10px 10px;  /* top | right | bottom | left */
+}
+
+/* FLEX CONTENT */
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+/* /* .justify-space-between {
+  justify-content: space-between;
+} */
+
+/* .justify-space-around {
+  justify-content: space-around;
+} */
+
+/* .justify-flex-start {
+  justify-content: flex-start
+} */
+
+/* .justify-flex-end {
+  justify-content: flex-end;
+} */
+
+/* .justify-center {
+  justify-content: center;
+}  */
+
+
 .forecast {
   display: flex; /* or inline-flex */
   justify-content: space-between; /* Can be changed in the live sample */
+  border: 2px solid;
+  margin: 20px;
 }
 .row {
   display: flex;
