@@ -93,8 +93,7 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
          let humidity = data.daily[i].humidity;
          let weatherDescription = data.daily[i].weather[0].description;
          let forecastFiveDay = `<div class="forecast-5day">
-          <p class="dayname">${dayname}</p>
-          <p class="daynum">${daynum}</p>
+          <p class="dayname">${dayname} ${daynum}</p>
           <img src="https://openweathermap.org/img/w/${icon}.png">
           <div <label for="" class="forecast-temp">Temp: </label>${temp}<sup>°F</sup></div>
           <div <label for="" class="forecast-desc">Condt: </label>${weatherDescription}</div>

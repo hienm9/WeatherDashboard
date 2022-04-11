@@ -54,8 +54,6 @@
   align-items:flex-start;
   margin-bottom: 10px;
 }
-/* .cityname img {
-} */
 
 /* FLEX CONTENT */
 .flex-row {
@@ -66,10 +64,9 @@
 .flex-column {
   display: flex;
   flex-direction: column;
-  /* line-height: 200%; */
-
   flex-wrap: wrap;
 }
+
 .other-styles {
     line-height: 200%;
 }
@@ -89,7 +86,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 10px;
-  min-width: 120px;
+  min-width: 150px;
   /* flex-wrap: wrap; */
 
 }
