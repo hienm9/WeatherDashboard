@@ -3,6 +3,7 @@ let nameCityEl = document.querySelector("#cityname");
 let searchHistoryList = document.querySelector("#search-history-container");
 let weatherContainerEl = document.querySelector(".weather");
 let submitBtn = document.querySelector("#submitBtn");
+let searchList = [];
 const myAPIKey = "f186c057bcef67933489204c248dcd30";
 
 let formSubmitHandler = function(event) {
@@ -12,8 +13,7 @@ let formSubmitHandler = function(event) {
    let usercity = nameCityEl.value.trim();
    if (usercity) {
      getCityWeather(usercity);
-     //add the city to search history list
-    //  searchHistory(usercity);
+     searchHistory(usercity);
      // clear old content
      weatherContainerEl.value="";
      nameCityEl.value="";
@@ -27,13 +27,10 @@ let getCityWeather = function(city) {
   // make a get request to url
   fetch(apiUrl)
     .then(function(response) {
-      // request was successful
       if (response.ok) {
-      //console.log(response);
       response.json().then(function(data) {
         //call the displayWeather function
         displayWeather(data);
-        //call search history function
       });
     }else{
       alert('Error: City not found');
@@ -74,22 +71,17 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
         let UVindex = data.daily[0].uvi;
         let iconCurrent = data.current.weather[0].icon;
         let forecastDay = `<div class="forecast-day">
-          <h2 class="cityname">${cityname} ${dayname} (${daynum}) <img src="https://openweathermap.org/img/w/${iconCurrent}.png"> </h2>
+          <h2 class="cityname">${cityname} - ${dayname} (${daynum}) <img src="https://openweathermap.org/img/w/${iconCurrent}.png"> </h2>
           <div <label for="" class="forecast-temp">Temp: </label>${temp}<sup>°F</sup></div>
           <div <label for="" class="forecast-wind">Wind: </label>${wind} MPH</div>
           <div <label for="" class="forecast-humidity">Humidity: </label>${humidity}</div>
           <div <label for="" class="UVIndex">UV Index: </label>${UVindex}</div>
           </div>`;
-          // let weatherDesc = data.current.weather[0].description;
-          // <p class="dayname">${dayname}</p>
-          // <p class="daynum">${daynum}</p>
-          // <img src="https://openweathermap.org/img/w/${iconCurrent}.png">
-          // <div <label for="" class="forecast-desc">Condition: </label>${weatherDesc}</div>
 
         // display the forcast for the current day
         currentForecast.innerHTML += forecastDay;
 
-        // move to 5 day data
+        // get data for 5 days forecast
         let fiveDayForecast = document.querySelector("#five-days-forecast");
         // reset the forcast data to blank
         fiveDayForecast.innerHTML = "";
@@ -122,25 +114,30 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
     });
 };
 
-  // searchHistory()
-// let displayWeather = function(searchCity) {
-//   displayCurrent(searchCity.city.coord.lat, searchCity.city.coord.lon);
-  // city found, push the search city to the history box, save it to the local storage, display to the local storage
-  // when click on a search history, it calls  displayWeather function and displays the weather data.
-// }
+//
+function searchHistory(usercity){
+  let savedCities = localStorage.getItem("savedCities");
+  if (savedCities === null) {
+    savedCities = [];
+  }else{
+    // parse cities into the savedCities array object
+    savedCities = JSON.parse(savedCities);
+  }
+  // convert the save cities object to string
+  let cities = JSON.stringify(savedCities);
+  localStorage.setItem("savedCities", cities);
+    // push entered city to the saveCities array
+  savedCities.push(usercity);
+  // call function to display the cities to the search history list
+  displaySearchHistory();
+}
+
+function displaySearchHistory() {
+  searchHistoryList.empty();
+  
+
+  }
+
+
 userFormEl.addEventListener("submit", formSubmitHandler);
 submitBtn.addEventListener('click',formSubmitHandler);
-// add  a click event for the button
-// on the current forcast section with border and radius
-// display the City enter  + (current date) + weather icon
-// display label "Temp:" + current temperature + "degree icon" + F
-// display label "Wind:" + current wind + MPH
-// display label Humidity: current + %
-// display UV Index: current number
-// on the 5-day Forcast section
-// display 5 cards from today's date.
-// on each card show the date in dd/mm/yyyy format
-// the weather icon
-// Temp:
-// Wind:
-// Humidity:
