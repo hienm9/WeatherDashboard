@@ -69,14 +69,15 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
         let weatherDesc = data.current.weather[0].description;
         let iconCurrent = data.current.weather[0].icon;
         let forecastDay = `<div class="forecast-day">
-          <h2 class="cityname">${cityname}</h2>
-          <p class="dayname">${dayname}</p>
-          <p class="daynum">${daynum}</p>
-          <img src="https://openweathermap.org/img/w/${iconCurrent}.png">
+          <h2 class="cityname">${cityname} (${daynum}) <img src="https://openweathermap.org/img/w/${iconCurrent}.png"> </h2>
           <div <label for="" class="forecast-desc">Condition: </label>${weatherDesc}</div>
           <div <label for="" class="forecast-temp">Temp: </label>${temp}<sup>°F</sup></div>
           <div <label for="" class="forecast-humidity">Humitidy: </label>${humidity}</div>
           </div>`;
+          // <p class="dayname">${dayname}</p>
+          // <p class="daynum">${daynum}</p>
+          // <img src="https://openweathermap.org/img/w/${iconCurrent}.png">
+
         // display the forcast for the current day
         currentForecast.innerHTML += forecastDay;
 
@@ -96,7 +97,7 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
           <p class="daynum">${daynum}</p>
           <img src="https://openweathermap.org/img/w/${icon}.png">
           <div <label for="" class="forecast-temp">Temp: </label>${temp}<sup>°F</sup></div>
-          <div <label for="" class="forecast-desc">Condition: </label>${weatherDescription}</div>
+          <div <label for="" class="forecast-desc">Condt: </label>${weatherDescription}</div>
           <div <label for="" class="forecast-humidity">Humidity: </label>${humidity}</div>
           </div>`;
           // display the forcast for 5 days

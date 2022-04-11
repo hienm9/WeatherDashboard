@@ -50,6 +50,13 @@
   padding: 5px 0 10px 10px;  /* top | right | bottom | left */
 }
 
+.cityname {
+  align-items:flex-start;
+  margin-bottom: 10px;
+}
+/* .cityname img {
+} */
+
 /* FLEX CONTENT */
 .flex-row {
   display: flex;
@@ -59,48 +66,50 @@
 .flex-column {
   display: flex;
   flex-direction: column;
+  /* line-height: 200%; */
+
   flex-wrap: wrap;
 }
-
-/* /* .justify-space-between {
-  justify-content: space-between;
-} */
-
-/* .justify-space-around {
-  justify-content: space-around;
-} */
-
-/* .justify-flex-start {
-  justify-content: flex-start
-} */
-
-/* .justify-flex-end {
-  justify-content: flex-end;
-} */
-
-/* .justify-center {
-  justify-content: center;
-}  */
+.other-styles {
+    line-height: 200%;
+}
 
 
 .forecast {
-  display: flex; /* or inline-flex */
-  justify-content: space-between; /* Can be changed in the live sample */
+  display: inline-flex; 
+  justify-content: space-between; 
   border: 2px solid;
-  margin: 20px;
 }
-.row {
+.forecast-5day{
+  display: inline-flex;
+  /* border: 2px solid; */
+  background-color: rgba(21, 39, 72, 0.952);
+  color: white;
+  margin: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  min-width: 120px;
+  /* flex-wrap: wrap; */
+
+}
+.forecast-5day img{
+  object-fit: contain;
+
+}
+
+/* .row {
   display: flex;
   flex-direction: row;
   flex-wrap: none;
   width: 100%;
-}
-.column {
+} */
+/* .column {
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
   flex: 1
-}
+} */
 
 
 
