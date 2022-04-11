@@ -1,5 +1,6 @@
 let userFormEl = document.querySelector("#user-form");
 let nameCityEl = document.querySelector("#cityname");
+let searchHistoryList = document.querySelector("#search-history-container");
 let weatherContainerEl = document.querySelector(".weather");
 let submitBtn = document.querySelector("#submitBtn");
 const myAPIKey = "f186c057bcef67933489204c248dcd30";
@@ -11,6 +12,8 @@ let formSubmitHandler = function(event) {
    let usercity = nameCityEl.value.trim();
    if (usercity) {
      getCityWeather(usercity);
+     //add the city to search history list
+    //  searchHistory(usercity);
      // clear old content
      weatherContainerEl.value="";
      nameCityEl.value="";
@@ -30,6 +33,7 @@ let getCityWeather = function(city) {
       response.json().then(function(data) {
         //call the displayWeather function
         displayWeather(data);
+        //call search history function
       });
     }else{
       alert('Error: City not found');
@@ -65,18 +69,22 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
         let dayname = new Date(data.current.dt * 1000).toLocaleDateString("en", {weekday: "long"});
         let daynum = new Date(data.current.dt * 1000).toLocaleDateString(dateOptions);
         let temp = data.current.temp;
+        let wind = data.current.wind_speed;
         let humidity = data.current.humidity;
-        let weatherDesc = data.current.weather[0].description;
+        let UVindex = data.daily[0].uvi;
         let iconCurrent = data.current.weather[0].icon;
         let forecastDay = `<div class="forecast-day">
-          <h2 class="cityname">${cityname} (${daynum}) <img src="https://openweathermap.org/img/w/${iconCurrent}.png"> </h2>
-          <div <label for="" class="forecast-desc">Condition: </label>${weatherDesc}</div>
+          <h2 class="cityname">${cityname} ${dayname} (${daynum}) <img src="https://openweathermap.org/img/w/${iconCurrent}.png"> </h2>
           <div <label for="" class="forecast-temp">Temp: </label>${temp}<sup>°F</sup></div>
-          <div <label for="" class="forecast-humidity">Humitidy: </label>${humidity}</div>
+          <div <label for="" class="forecast-wind">Wind: </label>${wind} MPH</div>
+          <div <label for="" class="forecast-humidity">Humidity: </label>${humidity}</div>
+          <div <label for="" class="UVIndex">UV Index: </label>${UVindex}</div>
           </div>`;
+          // let weatherDesc = data.current.weather[0].description;
           // <p class="dayname">${dayname}</p>
           // <p class="daynum">${daynum}</p>
           // <img src="https://openweathermap.org/img/w/${iconCurrent}.png">
+          // <div <label for="" class="forecast-desc">Condition: </label>${weatherDesc}</div>
 
         // display the forcast for the current day
         currentForecast.innerHTML += forecastDay;
@@ -90,15 +98,17 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
          let daynum = new Date(data.daily[i].dt * 1000).toLocaleDateString(dateOptions);    
          let icon = data.daily[i].weather[0].icon;
          let temp = data.daily[i].temp.day;
+         let wind = data.daily[i].wind_speed;
          let humidity = data.daily[i].humidity;
-         let weatherDescription = data.daily[i].weather[0].description;
+        //  let weatherDescription = data.daily[i].weather[0].description;
          let forecastFiveDay = `<div class="forecast-5day">
           <p class="dayname">${dayname} ${daynum}</p>
           <img src="https://openweathermap.org/img/w/${icon}.png">
           <div <label for="" class="forecast-temp">Temp: </label>${temp}<sup>°F</sup></div>
-          <div <label for="" class="forecast-desc">Condt: </label>${weatherDescription}</div>
+          <div <label for="" class="forecast-wind">Wind: </label>${wind} MPH</div>
           <div <label for="" class="forecast-humidity">Humidity: </label>${humidity}</div>
           </div>`;
+          // <div <label for="" class="forecast-desc">Condt: </label>${weatherDescription}</div>
           // display the forcast for 5 days
           fiveDayForecast.innerHTML += forecastFiveDay;
         }
@@ -111,6 +121,8 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
     alert('Unable to connect to Open Weather');
     });
 };
+
+  // searchHistory()
 // let displayWeather = function(searchCity) {
 //   displayCurrent(searchCity.city.coord.lat, searchCity.city.coord.lon);
   // city found, push the search city to the history box, save it to the local storage, display to the local storage
