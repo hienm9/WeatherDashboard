@@ -46,7 +46,7 @@
 .forecast-day{
   border: 2px solid darkgray;
   border-radius: 1px;
-  margin: 20px;
+  margin: 10px;
   padding: 5px 0 10px 10px;  /* top | right | bottom | left */
 }
 

@@ -4,6 +4,7 @@ let searchHistoryList = document.querySelector("#search-history-container");
 let weatherContainerEl = document.querySelector(".weather");
 let submitBtn = document.querySelector("#submitBtn");
 let searchList = [];
+let clearHistoryBtn = document.querySelector(".btnClear");
 const myAPIKey = "f186c057bcef67933489204c248dcd30";
 
 let formSubmitHandler = function(event) {
@@ -100,7 +101,6 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
           <div <label for="" class="forecast-wind">Wind: </label>${wind} MPH</div>
           <div <label for="" class="forecast-humidity">Humidity: </label>${humidity}</div>
           </div>`;
-          // <div <label for="" class="forecast-desc">Condt: </label>${weatherDescription}</div>
           // display the forcast for 5 days
           fiveDayForecast.innerHTML += forecastFiveDay;
         }
@@ -115,28 +115,47 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
 };
 
 //
+// savedCities = [];
 function searchHistory(usercity){
-  let savedCities = localStorage.getItem("savedCities");
-  if (savedCities === null) {
-    savedCities = [];
-  }else{
-    // parse cities into the savedCities array object
-    savedCities = JSON.parse(savedCities);
-  }
-  // convert the save cities object to string
-  let cities = JSON.stringify(savedCities);
-  localStorage.setItem("savedCities", cities);
-    // push entered city to the saveCities array
+  // let savedCities = localStorage.getItem("savedCities");
+  // if (savedCities === null) {
+  //   savedCities = [];
+  // }else{
+  //   // parse cities into the savedCities array object
+  //   savedCities = JSON.parse(savedCities);
+  // }
+  let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+      // push entered city to the savedCities array
   savedCities.push(usercity);
+  // convert the save cities object to string
+  // let cities = JSON.stringify(savedCities);
+  localStorage.setItem("savedCities", JSON.stringify(savedCities));
   // call function to display the cities to the search history list
-  displaySearchHistory();
+  displaySearchHistory(savedCities);
 }
 
-function displaySearchHistory() {
-  searchHistoryList.empty();
-  
+function displaySearchHistory(savedCities) {
+  searchHistoryList.innerHTML = "";
 
+  for (i = 0; i < savedCities.length; i ++) {
+    let listEL = document.createElement('button');
+    listEL.setAttribute('type','button');
+    listEL.classList.add('history-list');
+    listEL.textContent = savedCities[i];
+    searchHistoryList.append(listEL);
+    listEL.addEventListener("click", function(event) {
+      weatherContainerEl.value="";
+      getCityWeather(event.target.textContent);
+    })
   }
+  }
+
+function clearHistory() {
+  localStorage.clear();
+  searchHistoryList.innerHTML = "";
+}
+
+clearHistoryBtn.addEventListener('click', clearHistory );
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
