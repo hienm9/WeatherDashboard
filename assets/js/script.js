@@ -1,10 +1,12 @@
 let userFormEl = document.querySelector("#user-form");
 let nameCityEl = document.querySelector("#cityname");
-let searchHistoryList = document.querySelector("#search-history-container");
+let searchHistoryContainer = document.querySelector("#search-history-container");
+let searchHistoryList = document.querySelector("#search-history-list");
 let weatherContainerEl = document.querySelector(".weather");
 let submitBtn = document.querySelector("#submitBtn");
-let searchList = [];
 let clearHistoryBtn = document.querySelector(".btnClear");
+clearHistoryBtn.style.display = "none";
+
 const myAPIKey = "f186c057bcef67933489204c248dcd30";
 
 let formSubmitHandler = function(event) {
@@ -18,6 +20,8 @@ let formSubmitHandler = function(event) {
      // clear old content
      weatherContainerEl.value="";
      nameCityEl.value="";
+     clearHistoryBtn.style.display = "inline";
+
    }else{
      alert("Please enter a city");
    }
@@ -114,49 +118,50 @@ const dateOptions = {year: 'numeric', month: 'long', day: 'numeric' };
     });
 };
 
-//
-// savedCities = [];
+// function to save the entered cities to local storage
 function searchHistory(usercity){
-  // let savedCities = localStorage.getItem("savedCities");
-  // if (savedCities === null) {
-  //   savedCities = [];
-  // }else{
-  //   // parse cities into the savedCities array object
-  //   savedCities = JSON.parse(savedCities);
-  // }
+  // parse cities to the savedCities array object
   let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
-      // push entered city to the savedCities array
+  // push entered city to the savedCities array
   savedCities.push(usercity);
   // convert the save cities object to string
-  // let cities = JSON.stringify(savedCities);
   localStorage.setItem("savedCities", JSON.stringify(savedCities));
   // call function to display the cities to the search history list
   displaySearchHistory(savedCities);
+  clearHistoryBtn.style.display = 'inline';
 }
 
 function displaySearchHistory(savedCities) {
-  searchHistoryList.innerHTML = "";
+  // let 
+  searchHistoryContainer.innerHTML = "";
 
   for (i = 0; i < savedCities.length; i ++) {
     let listEL = document.createElement('button');
     listEL.setAttribute('type','button');
     listEL.classList.add('history-list');
     listEL.textContent = savedCities[i];
-    searchHistoryList.append(listEL);
+    searchHistoryContainer.append(listEL);
+    // searchHistoryList.append(listEL);
+    // let listEL = document.createElement('li');
+    // listEL.setAttribute('type','button');
+    // listEL.setAttribute("style","padding: 5px; width: 200px; border-radius: 7px;")
+    // listEL.classList.add('history-list')
+    // listEL.textContent = savedCities[i];
+    // searchHistoryList.appendChild(listEL);
+
     listEL.addEventListener("click", function(event) {
       weatherContainerEl.value="";
       getCityWeather(event.target.textContent);
     })
   }
   }
-
+// function to clear local storage and clear the history list
 function clearHistory() {
   localStorage.clear();
-  searchHistoryList.innerHTML = "";
+  searchHistoryContainer.innerHTML = "";
+  clearHistoryBtn.style.display="none";
 }
 
 clearHistoryBtn.addEventListener('click', clearHistory );
-
-
 userFormEl.addEventListener("submit", formSubmitHandler);
 submitBtn.addEventListener('click',formSubmitHandler);
