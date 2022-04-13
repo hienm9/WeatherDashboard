@@ -10,8 +10,11 @@ Deployment: https://hienm9.github.io/Challenge-06-WeatherDashboard-ServerSide-AP
 
 Technology used in this application:
 1. HTML and CSS to create basic structure and design
-2. JavaScript objects and functions
-3. local Storage API to store results from input
+3. JavaScript objects and functions
+4. local Storage API to store results from input
+
+![Screen Shot 2022-04-13 at 12 29 51 AM](https://user-images.githubusercontent.com/98295316/163100748-8d400282-448d-4a07-95ac-8986bddf482b.png)
+![Screen Shot 2022-04-13 at 12 29 51 AM](https://user-images.githubusercontent.com/98295316/163100806-4c1fba0d-9f0f-452e-949e-33ffafe86987.png)
 
 
 User story
