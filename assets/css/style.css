@@ -95,6 +95,29 @@
 
 }
 
+button.history-list {
+  display: list-item;
+  min-width: 180px;
+  margin: 5px 0 5px 0;
+  padding: 5px 0 5px 10px;  /* top | right | bottom | left */
+
+}
+
+button.btnClear {
+  min-width: 100px;
+  font-size: 1rem;
+  text-decoration:none;
+  padding: 6px 5px;
+  width: 217px;
+  margin: 5px 0;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  border: none;
+  outline: none;
+  background-color: var(--secondary);
+  transform: translate(-1px, -1px);
+  cursor: pointer;
+}
 /* .row {
   display: flex;
   flex-direction: row;
