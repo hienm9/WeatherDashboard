@@ -135,31 +135,12 @@ function displaySearchHistory(savedCities) {
   // let 
   searchHistoryContainer.innerHTML = "";
 
-  // var array = [];
-
-  // array.forEach(function(savedCities) {
-  //   var li = document.createElement("li");
-  //   var text = document.createTextNode(savedCities);
-  //   li.appendChild(text);
-  //   document.getElementById("search-history-list").appendChild(li);
-  // });
-
-
   for (i = 0; i < savedCities.length; i ++) {
     let listEL = document.createElement('button');
     listEL.setAttribute('type','button');
     listEL.classList.add('history-list');
     listEL.textContent = savedCities[i];
     searchHistoryContainer.append(listEL);
-
-
-    // searchHistoryList.append(listEL);
-    // let listEL = document.createElement('li');
-    // listEL.setAttribute('type','button');
-    // listEL.setAttribute("style","padding: 5px; width: 200px; border-radius: 7px;")
-    // listEL.classList.add('history-list')
-    // listEL.textContent = savedCities[i];
-    // searchHistoryList.appendChild(listEL);
 
     listEL.addEventListener("click", function(event) {
       weatherContainerEl.value="";

@@ -1,6 +1,18 @@
 # Challenge-06-WeatherDashboard-ServerSide-APIs
 
-This is a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS using a third-party APIs called https://openweathermap.org/api/one-call-api to retrieve weather data for cities.
+This is a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS using a third-party APIs called https://openweathermap.org/api/one-call-api to retrieve weather data for cities. The dashboard presents a form for user to enter a City, then if the City is found it displays 
+1. A container with the City, current date, weather icon, and weather information such as humidity, wind speed.
+2. A contain below displays 5 days of forecast data with similar information as date, temp, wind, humitity.
+3. It saves the city data to local storage, and then push it to the search history list. User can click on a search history item the weather forecast will display for the city.
+
+Deployment: https://hienm9.github.io/Challenge-06-WeatherDashboard-ServerSide-APIs/
+
+
+Technology used in this application:
+1. HTML and CSS to create basic structure and design
+2. JavaScript objects and functions
+3. local Storage API to store results from input
+
 
 User story
 AS A traveler
