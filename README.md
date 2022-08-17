@@ -1,4 +1,4 @@
-# Challenge-06-WeatherDashboard-ServerSide-APIs
+# WeatherDashboard-ServerSide-APIs
 
 This is a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS using a third-party APIs called https://openweathermap.org/api/one-call-api to retrieve weather data for cities. The dashboard presents a form for user to enter a City, then if the City is found it displays 
 1. A container with the City, current date, weather icon, and weather information such as humidity, wind speed.
