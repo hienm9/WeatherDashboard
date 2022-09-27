@@ -5,7 +5,7 @@ This is a weather dashboard that will run in the browser and feature dynamically
 2. A contain below displays 5 days of forecast data with similar information as date, temp, wind, humitity.
 3. It saves the city data to local storage, and then push it to the search history list. User can click on a search history item the weather forecast will display for the city.
 
-Deployment: https://hienm9.github.io/Challenge-06-WeatherDashboard-ServerSide-APIs/
+Deployment: https://hienm9.github.io/WeatherDashboard/
 
 
 Technology used in this application:
